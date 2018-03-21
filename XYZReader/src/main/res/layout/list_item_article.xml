@@ -2,10 +2,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginTop="4dp"
-    android:layout_marginBottom="4dp"
+    android:layout_marginStart="@dimen/material_baseline_grid_0.5x"
+    android:layout_marginEnd="4dp"
+    android:layout_marginTop="@dimen/material_baseline_grid_0.5x"
+    android:layout_marginBottom="@dimen/material_baseline_grid_0.5x"
     android:clickable="true"
     android:focusable="true"
     android:foreground="?selectableItemBackground">
@@ -24,26 +24,24 @@
 
         <TextView
             android:id="@+id/article_title"
-            style="@style/TextAppearance.AppCompat.Subhead"
+            style="@style/Theme.Bacon.TitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingTop="16dp"
             android:paddingRight="16dp"
-            android:paddingBottom="4dp"
-            android:textColor="@color/ltgray"
+            android:paddingBottom="@dimen/material_baseline_grid_0.5x"
             android:ellipsize="end"
             android:maxLines="4" />
 
         <TextView
             android:id="@+id/article_subtitle"
-            style="@style/TextAppearance.AppCompat.Body1"
+            style="@style/Theme.Bacon.SubtitleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
             android:paddingBottom="16dp"
-            android:textColor="#6000"
             android:maxLines="2"
             android:ellipsize="end" />
     </LinearLayout>
