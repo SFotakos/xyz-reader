@@ -13,5 +13,5 @@
     <dimen name="detail_metabar_vert_padding">@dimen/material_baseline_grid_2x</dimen>
     <dimen name="detail_metabar_title_bottom_padding">@dimen/material_baseline_grid_0.5x</dimen>
     <dimen name="detail_body_top_margin">@dimen/material_baseline_grid_2x</dimen>
-    <dimen name="detail_body_bottom_margin">@dimen/material_baseline_grid_11x</dimen>
+    <dimen name="detail_body_bottom_margin">@dimen/material_baseline_grid_7x</dimen>
 </resources>

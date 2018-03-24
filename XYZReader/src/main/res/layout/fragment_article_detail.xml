@@ -17,10 +17,11 @@
             style="@style/Widget.Design.CollapsingToolbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:contentScrim="@color/colorPrimary"
             android:fitsSystemWindows="true"
             android:padding="@dimen/material_baseline_grid_1x"
             app:elevation="2dp"
-            app:layout_scrollFlags="scroll">
+            app:layout_scrollFlags="scroll|enterAlways">
 
             <ImageView
                 android:id="@+id/imageView"
@@ -30,6 +31,12 @@
                 android:scaleType="centerCrop"
                 android:src="@color/photo_placeholder"
                 tools:ignore="ContentDescription" />
+
+            <View
+                android:id="@+id/imageViewProtection"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/photo_background_protection" />
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -55,55 +62,73 @@
 
             <TextView
                 android:id="@+id/article_title"
-                android:fitsSystemWindows="true"
                 style="@style/Theme.Bacon.TitleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
                 android:lineSpacingMultiplier="0.9"
                 android:paddingBottom="@dimen/detail_metabar_title_bottom_padding"
                 android:textColor="@color/material_color_white" />
 
             <TextView
                 android:id="@+id/article_byline"
-                android:fitsSystemWindows="true"
                 style="@style/Theme.Bacon.SubtitleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fitsSystemWindows="true"
                 android:textColor="@color/material_color_white" />
         </LinearLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
-        android:id="@+id/scrollview"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:isScrollContainer="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+        <ProgressBar
+            android:id="@+id/loadingIndicator"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:indeterminate="true" />
 
-            <TextView
-                android:id="@+id/article_body"
-                style="@style/Theme.Bacon.ContentText"
+        <android.support.v4.widget.NestedScrollView
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/material_baseline_grid_3.5x"
+            android:fadeScrollbars="false"
+            android:scrollbars="vertical">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/detail_inner_horiz_margin"
-                android:layout_marginStart="@dimen/detail_inner_horiz_margin"
-                android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
-                android:paddingBottom="@dimen/detail_body_bottom_margin"
-                android:textColorLink="@color/colorAccent" />
+                android:orientation="vertical">
 
-        </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
+                <TextView
+                    android:id="@+id/article_body"
+                    style="@style/Theme.Bacon.ContentText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="@dimen/detail_inner_horiz_margin"
+                    android:layout_marginStart="@dimen/detail_inner_horiz_margin"
+                    android:lineSpacingMultiplier="@fraction/detail_body_line_spacing_multiplier"
+                    android:paddingBottom="@dimen/detail_body_bottom_margin"
+                    android:textColorLink="@color/colorAccent" />
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+    </FrameLayout>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"
         android:layout_width="56dp"
         android:layout_height="56dp"
-        android:layout_margin="@dimen/material_button_fab_edge_margin"
+        android:layout_marginEnd="@dimen/material_button_fab_edge_margin"
+        android:layout_marginStart="@dimen/material_button_fab_edge_margin"
         android:background="@drawable/add_fab_background"
         android:contentDescription="@string/action_share"
         android:src="@drawable/ic_share"

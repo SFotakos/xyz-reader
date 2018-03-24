@@ -14,6 +14,7 @@ import java.util.GregorianCalendar;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
+import android.support.v4.widget.NestedScrollView;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
@@ -22,6 +23,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
@@ -57,7 +60,11 @@ public class ArticleDetailFragment extends Fragment implements
     private TextView mTitleView;
     private TextView mBylineView;
     private TextView mBodyView;
+    private NestedScrollView mScrollView;
     private FloatingActionButton mFab;
+    private View mPhotoProtection;
+    private LinearLayout mTextTitleBar;
+    private ProgressBar mLoadingIndicator;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -103,6 +110,7 @@ public class ArticleDetailFragment extends Fragment implements
         mRootView = inflater.inflate(R.layout.fragment_article_detail, container, false);
 
         bindViews();
+        mLoadingIndicator.setVisibility(View.VISIBLE);
         return mRootView;
     }
 
@@ -116,8 +124,14 @@ public class ArticleDetailFragment extends Fragment implements
         mBylineView.setMovementMethod(new LinkMovementMethod());
         mBodyView = (TextView) mRootView.findViewById(R.id.article_body);
         mPhotoView = (ImageView) mRootView.findViewById(R.id.imageView);
+        mScrollView = (NestedScrollView) mRootView.findViewById(R.id.scrollview);
         mToolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
         mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
+        mPhotoProtection = mRootView.findViewById(R.id.imageViewProtection);
+        mTextTitleBar = (LinearLayout) mRootView.findViewById(R.id.meta_bar);
+        mLoadingIndicator = (ProgressBar) mRootView.findViewById(R.id.loadingIndicator);
+
+        changeContentVisibility(View.INVISIBLE);
     }
 
     @Override
@@ -130,6 +144,7 @@ public class ArticleDetailFragment extends Fragment implements
         if (cursor == null || cursor.isClosed() || !cursor.moveToFirst()) {
             return;
         }
+        changeContentVisibility(View.VISIBLE);
 
         mCursor = cursor;
 
@@ -158,7 +173,7 @@ public class ArticleDetailFragment extends Fragment implements
                             publishedDate.getTime(),
                             System.currentTimeMillis(), DateUtils.HOUR_IN_MILLIS,
                             DateUtils.FORMAT_ABBREV_ALL).toString()
-                            + mCursor.getString(ArticleLoader.Query.AUTHOR)));
+                            + " " + mCursor.getString(ArticleLoader.Query.AUTHOR)));
 
         } else {
             // If date is before 1902, just show the string
@@ -168,14 +183,16 @@ public class ArticleDetailFragment extends Fragment implements
         }
 
         Picasso.get().load(photo).into(mPhotoView);
-
+        mPhotoView.setVisibility(View.VISIBLE);
         mFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(Intent.createChooser(
                         ShareCompat.IntentBuilder.from(getActivity())
                                 .setType("text/plain")
-                                .setText(body)
+                                .setText(mTitleView.getText().toString() + "\n" +
+                                        mBylineView.getText().toString() + ".\n" +
+                                "Check it out at our RSS feeds app, XYZreader")
                                 .getIntent(), getString(R.string.action_share)));
             }
         });
@@ -200,5 +217,18 @@ public class ArticleDetailFragment extends Fragment implements
             Log.i(TAG, "passing today's date");
             return new Date();
         }
+    }
+
+    private void changeContentVisibility(int visibility){
+        mPhotoView.setVisibility(visibility);
+        mTitleView.setVisibility(visibility);
+        mBylineView.setVisibility(visibility);
+        mBodyView.setVisibility(visibility);
+        mScrollView.setVisibility(visibility);
+        mFab.setVisibility(visibility);
+        mPhotoProtection.setVisibility(visibility);
+        mTextTitleBar.setVisibility(visibility);
+
+        mLoadingIndicator.setVisibility(visibility == View.VISIBLE ? View.GONE : View.VISIBLE);
     }
 }

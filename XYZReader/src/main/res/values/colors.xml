@@ -17,10 +17,10 @@
 
 <resources>
 
-    <color name="colorPrimary">#388e3c</color>
+    <color name="colorPrimary">#43a047</color>
     <color name="colorPrimaryDark">#2e7d32</color>
     <color name="colorAccent">#d81b60</color>
 
-    <color name="photo_placeholder">#7b1fa2</color>
+    <color name="photo_placeholder">#00ffffff</color>
 
 </resources>
