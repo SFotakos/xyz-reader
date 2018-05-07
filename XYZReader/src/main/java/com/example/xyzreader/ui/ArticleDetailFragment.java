@@ -14,24 +14,22 @@ import java.util.GregorianCalendar;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ShareCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.CardView;
 import android.text.Html;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
-import android.transition.Slide;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.support.v7.widget.Toolbar;
 
@@ -73,6 +71,7 @@ public class ArticleDetailFragment extends Fragment implements
     private View mPhotoProtection;
     private LinearLayout mTextTitleBar;
     private CollapsingToolbarLayout mCollapsingToolbar;
+    private CardView mCardView;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -137,6 +136,7 @@ public class ArticleDetailFragment extends Fragment implements
         mFab = (FloatingActionButton) mRootView.findViewById(R.id.share_fab);
         mPhotoProtection = mRootView.findViewById(R.id.imageViewProtection);
         mTextTitleBar = (LinearLayout) mRootView.findViewById(R.id.meta_bar);
+        mCardView = (CardView) mRootView.findViewById(R.id.cardView);
 
         changeContentVisibility(View.INVISIBLE);
     }
@@ -245,6 +245,9 @@ public class ArticleDetailFragment extends Fragment implements
     }
 
     private void applyPalette(Palette palette) {
+        // This fixes rotating the app before the palette was applied
+        if (getActivity() == null) return;
+
         int primaryDark = getResources().getColor(R.color.colorPrimaryDark);
         int primary = getResources().getColor(R.color.colorPrimary);
         int lightVibrantColor =
@@ -266,6 +269,10 @@ public class ArticleDetailFragment extends Fragment implements
         mScrollView.setVisibility(visibility);
         mFab.setVisibility(visibility);
         mPhotoProtection.setVisibility(visibility);
+
+        if (mIsCard) {
+            mCardView.setVisibility(visibility);
+        }
 
 
     }

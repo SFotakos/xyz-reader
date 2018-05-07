@@ -1,0 +1,9 @@
+<resources>
+    <!-- list -->
+    <dimen name="list_side_margin">48dp</dimen>
+    <dimen name="list_toolbar_side_margin">36dp</dimen> <!-- minus 48 - 12 -->
+    <integer name="list_column_count">2</integer>
+
+    <!-- detail -->
+    <dimen name="detail_card_max_width">490dp</dimen>
+</resources>
