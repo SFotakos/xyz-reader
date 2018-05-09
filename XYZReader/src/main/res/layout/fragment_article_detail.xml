@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            app:elevation="4dp"
+            app:elevation="@dimen/material_baseline_grid_0.5x"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:titleEnabled="true">
 
@@ -79,7 +79,7 @@
                 style="@style/Theme.Bacon.Toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:elevation="4dp"
+                app:elevation="@dimen/material_baseline_grid_0.5x"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
@@ -116,8 +116,8 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/share_fab"
-        android:layout_width="56dp"
-        android:layout_height="56dp"
+        android:layout_width="@dimen/material_button_fab_size"
+        android:layout_height="@dimen/material_button_fab_size"
         android:layout_marginEnd="@dimen/material_button_fab_edge_margin"
         android:layout_marginStart="@dimen/material_button_fab_edge_margin"
         android:background="@drawable/add_fab_background"
@@ -125,6 +125,7 @@
         android:src="@drawable/ic_share"
         android:stateListAnimator="@anim/fab_state_list_anim"
         app:elevation="@dimen/material_elevation_fab_resting"
+        app:pressedTranslationZ="@dimen/material_elevation_fab_pressed"
         app:layout_anchor="@id/appbar"
         app:layout_anchorGravity="bottom|end" />
 
